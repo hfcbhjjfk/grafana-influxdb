@@ -17,10 +17,10 @@ def get_metrics(ip, username):
     }
 
     metrics = {}
-    for key, cmd in commands.items():
+    for cmd in commands.items():
         stdin, stdout, stderr = ssh.exec_command(cmd)
         output = stdout.read().decode()
-        metrics[key] = output
+        
 
     ssh.close()
     return metrics

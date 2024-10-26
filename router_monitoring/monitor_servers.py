@@ -46,7 +46,7 @@ def monitor_server(ip, instance_id, private_key):
 
 # Collect metrics from all servers
 servers = [
-    {"ip": "54.172.223.186", "id": "First_server", "key": "/mnt/c/Users/gopic/first_keypair.pem"},
+    {"ip": "54.172.223.186", "id": "First_server"},
     # Add more servers here
 ]
 

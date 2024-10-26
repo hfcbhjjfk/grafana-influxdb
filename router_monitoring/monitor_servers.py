@@ -4,10 +4,10 @@ import time
 
 INFLUXDB_URL = 'http://18.207.204.195:8086/write?db=server_metrics'
 
-def get_metrics(ip, username, private_key):
+def get_metrics(ip, username):
     ssh = paramiko.SSHClient()
     ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-    ssh.connect(ip, username=username, key_filename=private_key)
+    ssh.connect(ip, username=username)
 
     # Commands to gather metrics
     commands = {
@@ -39,8 +39,8 @@ def send_metrics_to_influxdb(data):
         print(f"Failed to write to InfluxDB: {response.status_code}, {response.text}")
 
 # Example usage
-def monitor_server(ip, instance_id, private_key):
-    metrics = get_metrics(ip, 'ubuntu', private_key)
+def monitor_server(ip, instance_id):
+    metrics = get_metrics(ip, 'ubuntu')
     formatted_data = format_metrics_to_influx(instance_id, metrics)
     send_metrics_to_influxdb(formatted_data)
 
@@ -51,5 +51,5 @@ servers = [
 ]
 
 for server in servers:
-    monitor_server(server['ip'], server['id'], server['key'])
+    monitor_server(server['ip'], server['id'])
     time.sleep(5)  # To avoid overloading InfluxDB
